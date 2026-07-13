@@ -1,0 +1,28 @@
+{
+  "name": "quick-e-commerce-backend",
+  "version": "1.0.0",
+  "description": "A production-grade Quick Commerce Backend inspired by Blinkit, Zepto, and Instamart.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch server.ts",
+    "build": "tsc",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yogeshlongwani07-rgb/quick-e-commerce-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/yogeshlongwani07-rgb/quick-e-commerce-backend/issues"
+  },
+  "homepage": "https://github.com/yogeshlongwani07-rgb/quick-e-commerce-backend#readme",
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2"
+  }
+}
