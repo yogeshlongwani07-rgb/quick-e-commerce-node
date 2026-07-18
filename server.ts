@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 import express from "express";
 const app = express();
 dotenv.config();
-import adminRoutes from "./src/controllers/admin-controller.js";
-import userRoutes from "./src/controllers/user-controller.js";
+import adminRoutes from "./src/routes/admin.js";
+import userRoutes from "./src/routes/user.js";
 import connectToDB from "./src/config/mongo.js";
 connectToDB();
 
