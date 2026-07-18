@@ -7,6 +7,7 @@ import userRoutes from "./src/routes/user.js";
 import connectToDB from "./src/config/mongo.js";
 connectToDB();
 
+app.use(express.json());
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/user", userRoutes);
 app.get("/", (req, res) => {
