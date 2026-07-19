@@ -1,11 +1,6 @@
 import { Request, Response } from "express";
 import AdminService from "../services/admin-service.js";
-
-interface Signup {
-  name: string;
-  email: string;
-  password: string;
-}
+import { Signup } from "../interfaces/admin.js";
 
 class AdminTasks {
   async create(req: Request<{}, {}, Signup>, res: Response) {

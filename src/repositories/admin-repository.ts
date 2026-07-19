@@ -1,10 +1,10 @@
-import BaseRepos from "./base-repository.js";
 import Admin from "../models/admin.js";
+import BaseRepository from "./base-repository.js";
 
-class AdminRepos extends BaseRepos {
+class AdminRepository extends BaseRepository {
   constructor() {
     super(Admin);
   }
 }
 
-export default AdminRepos;
+export default new AdminRepository();

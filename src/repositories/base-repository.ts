@@ -1,8 +1,10 @@
-class BaseRepos {
-  constructor(model) {
-    this.model = model;
+import { Signup } from "../interfaces/admin.js";
+class BaseRepository {
+  constructor(public model: any) {}
+
+  async create(body: Signup) {
+    return this.model.create(body);
   }
-  async create() {}
 }
 
-export default new BaseRepos();
+export default BaseRepository;
