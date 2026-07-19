@@ -1,19 +1,9 @@
-import Admin from "../models/admin.js";
-
-interface Signup {
-  name: string;
-  email: string;
-  password: string;
-}
+import AdminRepos from "../repositories/admin-repository.js";
+import { Signup } from "../interfaces/admin.js";
 
 class AdminServices {
   async create(body: Signup) {
-    const { name, email, password } = body;
-    await Admin.create({
-      name,
-      email,
-      password,
-    });
+    return await AdminRepos.create(body);
   }
 }
 

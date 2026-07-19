@@ -10,9 +10,6 @@ connectToDB();
 app.use(express.json());
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/user", userRoutes);
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Working - Good Health", success: true });
-});
 
 app.listen(process.env.PORT, () => {
   console.log(`Server Connected ${process.env.PORT}`);
