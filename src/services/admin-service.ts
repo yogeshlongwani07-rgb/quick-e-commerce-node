@@ -2,7 +2,7 @@ import AdminRepository from "../repositories/admin-repository.js";
 import { Signup } from "../interfaces/admin.js";
 import { AppError } from "../utils/app-error.js";
 
-class AdminServices {
+class AdminService {
   async create(body: Signup) {
     const { email } = body;
     const emailExist = await AdminRepository.findByEmail(email);
@@ -13,4 +13,4 @@ class AdminServices {
   }
 }
 
-export default new AdminServices();
+export default new AdminService();

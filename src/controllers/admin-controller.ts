@@ -3,7 +3,7 @@ import AdminService from "../services/admin-service.js";
 import { Signup } from "../interfaces/admin.js";
 import { AppError } from "../utils/app-error.js";
 
-class AdminTasks {
+class AdminController {
   async create(req: Request<{}, {}, Signup>, res: Response) {
     try {
       await AdminService.create(req.body);
@@ -23,4 +23,4 @@ class AdminTasks {
   }
 }
 
-export default new AdminTasks();
+export default new AdminController();
