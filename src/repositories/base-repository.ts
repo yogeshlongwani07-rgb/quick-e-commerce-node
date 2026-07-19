@@ -5,6 +5,9 @@ class BaseRepository {
   async create(body: Signup) {
     return this.model.create(body);
   }
+  async findByEmail(email: string) {
+    return this.model.findOne({ email });
+  }
 }
 
 export default BaseRepository;

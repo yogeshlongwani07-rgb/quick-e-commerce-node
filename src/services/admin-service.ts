@@ -1,10 +1,16 @@
 import AdminRepository from "../repositories/admin-repository.js";
 import { Signup } from "../interfaces/admin.js";
+import { AppError } from "../utils/app-error.js";
 
-class AdminServices {
+class AdminService {
   async create(body: Signup) {
-    return await AdminRepository.create(body);
+    const { email } = body;
+    const emailExist = await AdminRepository.findByEmail(email);
+    if (emailExist) {
+      throw new AppError("Email Already Exist", 400);
+    }
+    return AdminRepository.create(body);
   }
 }
 
-export default new AdminServices();
+export default new AdminService();
