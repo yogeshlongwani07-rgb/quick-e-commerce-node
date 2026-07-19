@@ -1,13 +1,10 @@
 import Admin from "../models/admin.js";
-import { Signup } from "../interfaces/admin.js";
+import BaseRepository from "./base-repository.js";
 
-
-class AdminRepos {
-  async create(body: Signup) {
-    return await Admin.create({
-      ...body,
-    });
+class AdminRepository extends BaseRepository {
+  constructor() {
+    super(Admin);
   }
 }
 
-export default new AdminRepos();
+export default new AdminRepository();
