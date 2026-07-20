@@ -1,5 +1,5 @@
 import AdminRepository from "../repositories/admin-repository.js";
-import { Signup } from "../interfaces/admin.js";
+import { Login, Signup } from "../interfaces/admin.js";
 import { AppError } from "../utils/app-error.js";
 
 class AdminService {
@@ -11,6 +11,7 @@ class AdminService {
     }
     return AdminRepository.create(body);
   }
+  async login(body: Login) {}
 }
 
 export default new AdminService();
