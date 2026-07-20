@@ -4,12 +4,12 @@ import { AppError } from "../utils/app-error.js";
 
 class UserServices {
   async create(body: Signup) {
-    const { email } = body;
+    const { name, email, password } = body;
     const emailExist = await UserRepository.findByEmail(email);
     if (emailExist) {
       throw new AppError("Email Already Exist", 400);
     }
-    return UserRepository.create(body);
+    return UserRepository.create({ name, email, password });
   }
 }
 
