@@ -11,4 +11,6 @@ router.post(
   asyncHandler(AdminController.create.bind(AdminController)),
 );
 
+router.post("/login", AdminController.login.bind(AdminController));
+
 export default router;
