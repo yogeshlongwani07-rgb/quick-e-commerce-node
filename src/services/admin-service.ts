@@ -15,9 +15,24 @@ class AdminService {
       throw new AppError("SALT_ROUNDS not found", 400);
     }
     const hashpassword = await bcrypt.hash(password, salt);
-    return AdminRepository.create({ name, email, password: hashpassword });
+    const newAccount = await AdminRepository.create({
+      name,
+      email,
+      password: hashpassword,
+    });
+    return newAccount;
   }
-  async login(body: Login) {}
+  async login(body: Login) {
+    const { email, password } = body;
+    const admin = await AdminRepository.findByEmail(email);
+    if (!admin) {
+      throw new AppError("Admin not Found", 400);
+    }
+    const match = await bcrypt.compare(password, admin.password);
+    if (!match) {
+      throw new AppError("Invalid Credentials", 400);
+    }
+  }
 }
 
 export default new AdminService();
