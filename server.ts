@@ -1,7 +1,16 @@
 import dotenv from "dotenv";
 import express from "express";
-const app = express();
+import { envVar } from "./src/constant.js";
+
 dotenv.config();
+
+for (let varName of envVar) {
+  if (!process.env[varName]) {
+    throw new Error(`${varName} not found`);
+  }
+}
+
+const app = express();
 import adminRoutes from "./src/routes/admin.js";
 import userRoutes from "./src/routes/user.js";
 import connectToDB from "./src/config/mongo.js";
