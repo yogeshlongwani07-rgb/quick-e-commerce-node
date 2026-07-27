@@ -34,11 +34,15 @@ class AdminService {
     }
     return admin;
   }
-  async logout(id: string) {
+  async delete(id: string) {
     if (!id) {
       throw new AppError("Please login first", 400);
     }
-    return await AdminRepository.delete(id);
+    const admin = await AdminRepository.findById(id);
+    if (!admin) {
+      throw new AppError("Account not found", 400);
+    }
+    await AdminRepository.delete(id);
   }
 }
 

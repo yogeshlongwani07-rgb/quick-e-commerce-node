@@ -25,8 +25,10 @@ class AdminController {
     });
   }
   async delete(req: Request<{}, {}, Login>, res: Response): Promise<void> {
-    await AdminService.logout(req.user._id);
-    res.status(200).json({ message: "You are Logged out", success: true });
+    await AdminService.delete(req.user._id);
+    res
+      .status(200)
+      .json({ message: "Account deleted Successfully", success: true });
   }
 }
 

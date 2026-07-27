@@ -24,7 +24,12 @@ class UserController {
       message: "Logged out",
     });
   }
-  async delete(req: Request<{}, {}, Login>, res: Response): Promise<void> {}
+  async delete(req: Request<{}, {}, Login>, res: Response): Promise<void> {
+    await UserServices.delete(req.user._id);
+    res
+      .status(200)
+      .json({ message: "Account deleted Successfully", success: true });
+  }
 }
 
 export default new UserController();

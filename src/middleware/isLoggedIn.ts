@@ -7,7 +7,7 @@ export async function isLoggedIn(
   res: Response,
   next: NextFunction,
 ): Promise<void> {
-  const token = req.cookies.accessToken;
+  const token = req.cookies?.accessToken;
   if (!token) {
     res.status(401).json({
       message: "Authentication is required to access this resource.",

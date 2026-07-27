@@ -22,6 +22,10 @@ router.post(
 );
 
 router.post("/logout", AdminController.logout.bind(AdminController));
-router.delete("/delete", isLoggedIn, AdminController.delete);
+router.delete(
+  "/delete",
+  isLoggedIn,
+  AdminController.delete.bind(AdminController),
+);
 
 export default router;

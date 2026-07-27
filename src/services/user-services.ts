@@ -30,6 +30,16 @@ class UserServices {
     }
     return user;
   }
+  async delete(id: string) {
+    if (!id) {
+      throw new AppError("Please login first", 400);
+    }
+    const user = await UserRepository.findById(id);
+    if (!user) {
+      throw new AppError("Account not found", 400);
+    }
+    await UserRepository.delete(id);
+  }
 }
 
 export default new UserServices();

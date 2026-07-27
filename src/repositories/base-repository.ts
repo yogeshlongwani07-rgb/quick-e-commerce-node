@@ -11,6 +11,9 @@ class BaseRepository {
   async delete(id: string) {
     return this.model.deleteOne({ _id: id });
   }
+  async findById(id: string) {
+    return this.model.findById(id);
+  }
 }
 
 export default BaseRepository;
