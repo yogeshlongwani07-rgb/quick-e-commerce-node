@@ -8,7 +8,7 @@ import { valdiate } from "../middleware/validate.js";
 import UserController from "../controllers/user-controller.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import userController from "../controllers/user-controller.js";
-import { isLoggedIn } from "../middleware/auth.js";
+import { isLoggedIn, isUser } from "../middleware/auth.js";
 router.post(
   "/signup",
   valdiate(UserregisteSchema),
@@ -21,10 +21,16 @@ router.post(
   UserController.login.bind(userController),
 );
 
-router.post("/logout", isLoggedIn, UserController.logout.bind(UserController));
+router.post(
+  "/logout",
+  isLoggedIn,
+  isUser,
+  UserController.logout.bind(UserController),
+);
 router.delete(
   "/delete",
   isLoggedIn,
+  isUser,
   UserController.delete.bind(UserController),
 );
 
