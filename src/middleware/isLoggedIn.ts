@@ -2,12 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import Jwt from "jsonwebtoken";
 import { TokenPayload } from "../interfaces/base.js";
 
-interface AuthRequest extends Request {
-  user: TokenPayload;
-}
-
 export async function isLoggedIn(
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> {

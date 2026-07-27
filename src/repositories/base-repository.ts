@@ -8,6 +8,9 @@ class BaseRepository {
   async findByEmail(email: string) {
     return this.model.findOne({ email });
   }
+  async delete(id: string) {
+    return this.model.deleteOne({ _id: id });
+  }
 }
 
 export default BaseRepository;

@@ -34,6 +34,12 @@ class AdminService {
     }
     return admin;
   }
+  async logout(id: string) {
+    if (!id) {
+      throw new AppError("Please login first", 400);
+    }
+    return await AdminRepository.delete(id);
+  }
 }
 
 export default new AdminService();

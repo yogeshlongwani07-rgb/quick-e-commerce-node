@@ -24,7 +24,10 @@ class AdminController {
       message: "Logged out",
     });
   }
-  async delete(req: Request<{}, {}, Login>, res: Response): Promise<void> {}
+  async delete(req: Request<{}, {}, Login>, res: Response): Promise<void> {
+    await AdminService.logout(req.user._id);
+    res.status(200).json({ message: "You are Logged out", success: true });
+  }
 }
 
 export default new AdminController();
