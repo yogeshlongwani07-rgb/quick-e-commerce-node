@@ -1,4 +1,4 @@
-import { Signup } from "../interfaces/admin.js";
+import { Signup } from "../interfaces/base.js";
 class BaseRepository {
   constructor(public model: any) {}
 

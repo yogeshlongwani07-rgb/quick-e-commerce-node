@@ -16,6 +16,14 @@ class UserController {
     setAuthCookies(res, user);
     res.status(200).json({ message: "You are Logged in", success: true });
   }
+  async logout(req: Request<{}, {}, Login>, res: Response): Promise<void> {
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+    res.json({
+      success: true,
+      message: "Logged out",
+    });
+  }
 }
 
 export default new UserController();
