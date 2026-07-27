@@ -24,32 +24,33 @@ export async function isLoggedIn(
   next();
 }
 
-export function isUser(req: Request, res: Response, next: NextFunction) {
+export function isUser(req: Request, res: Response, next: NextFunction): void {
   if (!req.user) {
-    return res
-      .status(401)
-      .json({ message: "Authentication failed.", success: false });
+    res.status(401).json({ message: "Authentication failed.", success: false });
+    return;
   }
-  if (req.user.role !== "user")
-    return res.status(403).json({
+  if (req.user.role !== "user") {
+    res.status(403).json({
       message: "Only admin can add/update/delete movie listings",
       success: false,
     });
-
+    return;
+  }
   next();
 }
 
-export function isAdmin(req: Request, res: Response, next: NextFunction) {
+export function isAdmin(req: Request, res: Response, next: NextFunction): void {
   if (!req.user) {
-    return res
-      .status(401)
-      .json({ message: "Authentication failed.", success: false });
+    res.status(401).json({ message: "Authentication failed.", success: false });
+    return;
   }
-  if (req.user.role !== "admin")
-    return res.status(403).json({
+  if (req.user.role !== "admin") {
+    res.status(403).json({
       message: "Only admin can add/update/delete movie listings",
       success: false,
     });
+    return;
+  }
 
   next();
 }
