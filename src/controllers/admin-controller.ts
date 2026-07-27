@@ -24,6 +24,7 @@ class AdminController {
       message: "Logged out",
     });
   }
+  async delete(req: Request<{}, {}, Login>, res: Response): Promise<void> {}
 }
 
 export default new AdminController();

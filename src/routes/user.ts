@@ -21,5 +21,6 @@ router.post(
 );
 
 router.post("/logout", UserController.logout.bind(UserController));
+// router.delete("/delete");
 
 export default router;
