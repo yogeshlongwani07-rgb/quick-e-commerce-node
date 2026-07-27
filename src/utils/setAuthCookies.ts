@@ -1,10 +1,14 @@
 import { Response } from "express";
+import generateToken from "./generateToken.js";
 
-export function setAuthCookies(
-  res: Response,
-  accessToken: String,
-  refreshToken: String,
-) {
+interface TokenPayload {
+  _id: string;
+  role: string;
+}
+
+export async function setAuthCookies(res: Response, obj: TokenPayload) {
+  const { accessToken, refreshToken } = generateToken(obj);
+
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
