@@ -26,6 +26,8 @@ class UserController {
   }
   async delete(req: Request<{}, {}, Login>, res: Response): Promise<void> {
     await UserServices.delete(req.user._id);
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
     res
       .status(200)
       .json({ message: "Account deleted Successfully", success: true });
