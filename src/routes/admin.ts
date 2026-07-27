@@ -7,7 +7,7 @@ import {
 import { valdiate } from "../middleware/validate.js";
 import AdminController from "../controllers/admin-controller.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import { isLoggedIn } from "../middleware/isLoggedIn.js";
+import { isLoggedIn } from "../middleware/auth.js";
 
 router.post(
   "/signup",

@@ -8,7 +8,7 @@ import { valdiate } from "../middleware/validate.js";
 import UserController from "../controllers/user-controller.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import userController from "../controllers/user-controller.js";
-import { isLoggedIn } from "../middleware/isLoggedIn.js";
+import { isLoggedIn } from "../middleware/auth.js";
 router.post(
   "/signup",
   valdiate(UserregisteSchema),
