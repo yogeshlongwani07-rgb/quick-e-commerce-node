@@ -1,6 +1,9 @@
 import express from "express";
 const router = express.Router();
-import { AdminregisteSchema } from "../validations/admin.validation.js";
+import {
+  adminLoginSchema,
+  AdminregisteSchema,
+} from "../validations/admin.validation.js";
 import { valdiate } from "../middleware/validate.js";
 import AdminController from "../controllers/admin-controller.js";
 import asyncHandler from "../utils/asyncHandler.js";
@@ -11,6 +14,10 @@ router.post(
   asyncHandler(AdminController.create.bind(AdminController)),
 );
 
-router.post("/login", AdminController.login.bind(AdminController));
+router.post(
+  "/login",
+  valdiate(adminLoginSchema),
+  AdminController.login.bind(AdminController),
+);
 
 export default router;

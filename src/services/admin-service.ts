@@ -32,6 +32,7 @@ class AdminService {
     if (!match) {
       throw new AppError("Invalid Credentials", 400);
     }
+    return admin;
   }
 }
 

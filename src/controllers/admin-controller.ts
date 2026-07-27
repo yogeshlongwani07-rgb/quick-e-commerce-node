@@ -14,7 +14,9 @@ class AdminController {
       .json({ message: "Account Created Successfully", success: true });
   }
   async login(req: Request<{}, {}, Login>, res: Response): Promise<void> {
-    await AdminService.login(req.body);
+    const admin = await AdminService.login(req.body);
+    const { accessToken, refreshToken } = await generateToken(admin);
+    setAuthCookies(res, accessToken, refreshToken);
     res.status(200).json({ message: "You are Logged in", success: true });
   }
 }
