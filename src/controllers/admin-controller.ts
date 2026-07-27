@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import AdminService from "../services/admin-service.js";
-import { Login, Signup } from "../interfaces/admin.js";
+import { Login, Signup } from "../interfaces/base.js";
 import generateToken from "../utils/generateToken.js";
 import { setAuthCookies } from "../utils/setAuthCookies.js";
 

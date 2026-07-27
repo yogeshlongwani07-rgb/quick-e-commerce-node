@@ -1,4 +1,4 @@
-import { Signup, Login } from "../interfaces/user.js";
+import { Signup, Login } from "../interfaces/base.js";
 import UserRepository from "../repositories/user-repository.js";
 import { AppError } from "../utils/app-error.js";
 import bcrypt from "bcrypt";

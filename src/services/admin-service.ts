@@ -1,5 +1,5 @@
 import AdminRepository from "../repositories/admin-repository.js";
-import { Login, Signup } from "../interfaces/admin.js";
+import { Login, Signup } from "../interfaces/base.js";
 import { AppError } from "../utils/app-error.js";
 import bcrypt from "bcrypt";
 

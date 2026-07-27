@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import UserServices from "../services/user-services.js";
 import generateToken from "../utils/generateToken.js";
 import { setAuthCookies } from "../utils/setAuthCookies.js";
-import { Login, Signup } from "../interfaces/user.js";
+import { Login, Signup } from "../interfaces/base.js";
 
 class UserController {
   async create(req: Request<{}, {}, Signup>, res: Response): Promise<void> {
