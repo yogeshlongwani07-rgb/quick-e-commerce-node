@@ -1,29 +1,36 @@
 import { Request, Response } from "express";
 import AdminService from "../services/admin-service.js";
-import { Login, Signup } from "../interfaces/admin.js";
-import generateToken from "../utils/generateToken.js";
+import { Login, Signup } from "../interfaces/base.js";
+import { setAuthCookies } from "../utils/setAuthCookies.js";
 
 class AdminController {
   async create(req: Request<{}, {}, Signup>, res: Response): Promise<void> {
     const admin = await AdminService.create(req.body);
-    const { accessToken, refreshToken } = await generateToken(admin);
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
-      maxAge: 15 * 60 * 1000,
-    });
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-    res.status(201).json({ message: "Account Created", success: true });
+    setAuthCookies(res, admin);
+    res
+      .status(201)
+      .json({ message: "Account Created Successfully", success: true });
   }
   async login(req: Request<{}, {}, Login>, res: Response): Promise<void> {
-    await AdminService.login(req.body);
+    const admin = await AdminService.login(req.body);
+    setAuthCookies(res, admin);
     res.status(200).json({ message: "You are Logged in", success: true });
+  }
+  async logout(req: Request<{}, {}, Login>, res: Response): Promise<void> {
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+    res.json({
+      success: true,
+      message: "Logged out",
+    });
+  }
+  async delete(req: Request<{}, {}, Login>, res: Response): Promise<void> {
+    await AdminService.delete(req.user._id);
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+    res
+      .status(200)
+      .json({ message: "Account deleted Successfully", success: true });
   }
 }
 

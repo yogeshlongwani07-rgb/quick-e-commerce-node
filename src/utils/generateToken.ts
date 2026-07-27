@@ -4,7 +4,7 @@ interface TokenPayload {
   _id: string;
   role: string;
 }
-export default async function generateToken(obj: TokenPayload) {
+export default function generateToken(obj: TokenPayload) {
   const accessToken = jwt.sign(
     { _id: obj._id, role: obj.role },
     process.env.ACCESS_TOKEN_SECRET!,

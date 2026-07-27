@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import { envVar } from "./src/constant.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ import errorHandler from "./src/middleware/errorHandler.js";
 connectToDB();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use(errorHandler);

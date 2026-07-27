@@ -1,4 +1,4 @@
-import { Signup } from "../interfaces/admin.js";
+import { Signup } from "../interfaces/base.js";
 class BaseRepository {
   constructor(public model: any) {}
 
@@ -7,6 +7,12 @@ class BaseRepository {
   }
   async findByEmail(email: string) {
     return this.model.findOne({ email });
+  }
+  async delete(id: string) {
+    return this.model.deleteOne({ _id: id });
+  }
+  async findById(id: string) {
+    return this.model.findById(id);
   }
 }
 

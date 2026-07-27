@@ -1,5 +1,5 @@
 import AdminRepository from "../repositories/admin-repository.js";
-import { Login, Signup } from "../interfaces/admin.js";
+import { Login, Signup } from "../interfaces/base.js";
 import { AppError } from "../utils/app-error.js";
 import bcrypt from "bcrypt";
 
@@ -32,6 +32,17 @@ class AdminService {
     if (!match) {
       throw new AppError("Invalid Credentials", 400);
     }
+    return admin;
+  }
+  async delete(id: string) {
+    if (!id) {
+      throw new AppError("Please login first", 400);
+    }
+    const admin = await AdminRepository.findById(id);
+    if (!admin) {
+      throw new AppError("Account not found", 400);
+    }
+    await AdminRepository.delete(id);
   }
 }
 
