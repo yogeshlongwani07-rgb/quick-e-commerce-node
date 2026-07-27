@@ -20,4 +20,6 @@ router.post(
   AdminController.login.bind(AdminController),
 );
 
+router.post("/logout", AdminController.logout.bind(AdminController));
+
 export default router;

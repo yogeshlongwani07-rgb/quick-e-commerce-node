@@ -19,4 +19,7 @@ router.post(
   valdiate(userLoginSchema),
   UserController.login.bind(userController),
 );
+
+router.post("/logout", UserController.logout.bind(UserController));
+
 export default router;
