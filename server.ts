@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
-import express from "express";
 import { envVar } from "./src/constant.js";
-import cookieParser from "cookie-parser";
+import connectToDB from "./src/config/mongo.js";
+import createApp from "./src/app.js";
+import http from "http";
 
 dotenv.config();
 
@@ -10,20 +11,19 @@ for (let varName of envVar) {
     throw new Error(`${varName} not found`);
   }
 }
+let server;
+async function startServer() {
+  try {
+    await connectToDB();
+    const app = createApp();
+    server = http.createServer(app);
+    server.listen(process.env.PORT, () => {
+      console.log(`Server Connected ${process.env.PORT}`);
+    });
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
 
-const app = express();
-import adminRoutes from "./src/routes/admin.js";
-import userRoutes from "./src/routes/user.js";
-import connectToDB from "./src/config/mongo.js";
-import errorHandler from "./src/middleware/errorHandler.js";
-connectToDB();
-
-app.use(express.json());
-app.use(cookieParser());
-app.use("/api/v1/admin", adminRoutes);
-app.use("/api/v1/user", userRoutes);
-app.use(errorHandler);
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server Connected ${process.env.PORT}`);
-});
+startServer();
