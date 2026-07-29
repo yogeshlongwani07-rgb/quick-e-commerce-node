@@ -1,1 +1,10 @@
-export const envVar = ["SALTROUND", "MONGO_URL", "ACCESS_TOKEN_SECRET", "PORT"];
+export const envVar = [
+  "SALTROUND",
+  "MONGO_URL",
+  "ACCESS_TOKEN_SECRET",
+  "PORT",
+  "GOOGLE_REDIRECT_URI",
+  "GOOGLE_CLIENT_ID",
+  "GOOGLE_CLIENT_SECRET",
+  "FRONTEND_URL",
+];
