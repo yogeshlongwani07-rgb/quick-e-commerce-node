@@ -7,10 +7,12 @@ class OAuthController {
   async redirectToProvider(req: Request, res: Response) {
     const state = crypto.randomBytes(32).toString("hex");
 
+    const isProd = process.env.NODE_ENV === "production";
+
     res.cookie("oauth_state", state, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
+      sameSite: isProd ? "none" : "lax",
       maxAge: 15 * 60 * 1000,
     });
 

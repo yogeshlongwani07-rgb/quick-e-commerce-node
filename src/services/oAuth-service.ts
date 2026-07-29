@@ -28,8 +28,6 @@ class oAuthService {
       state: string;
     };
 
-    console.log(state);
-
     if (!code) {
       throw new AppError("Authorization code missing", 400);
     }
@@ -66,7 +64,6 @@ class oAuthService {
       audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
-    console.log(payload);
 
     if (!payload) {
       throw new AppError("Invalid Google Token", 400);
