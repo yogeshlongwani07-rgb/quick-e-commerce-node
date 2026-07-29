@@ -34,4 +34,8 @@ router.delete(
   AdminController.delete.bind(AdminController),
 );
 
+router.post(
+  "/token/refresh",
+  AdminController.createAccessToken.bind(AdminController),
+);
 export default router;

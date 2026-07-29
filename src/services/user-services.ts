@@ -1,7 +1,9 @@
-import { Signup, Login } from "../interfaces/base.js";
+import { Signup, Login, TokenPayload } from "../interfaces/base.js";
 import UserRepository from "../repositories/user-repository.js";
 import { AppError } from "../utils/app-error.js";
 import bcrypt from "bcrypt";
+import Jwt from "jsonwebtoken";
+import generateToken from "../utils/generateToken.js";
 
 class UserServices {
   async create(body: Signup) {
@@ -39,6 +41,24 @@ class UserServices {
       throw new AppError("Account not found", 400);
     }
     await UserRepository.delete(id);
+  }
+
+  async createAccessToken(refreshToken: string) {
+    if (!refreshToken) {
+      throw new AppError("Token Not Found", 404);
+    }
+
+    const decode = Jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET!,
+    ) as TokenPayload;
+
+    const user = await UserRepository.findById(decode._id);
+    if (!user) {
+      throw new AppError("User not found", 404);
+    }
+    const { accessToken } = generateToken(user);
+    return accessToken;
   }
 }
 

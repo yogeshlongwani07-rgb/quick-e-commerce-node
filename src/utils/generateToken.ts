@@ -14,7 +14,7 @@ export default function generateToken(obj: TokenPayload) {
   );
   const refreshToken = jwt.sign(
     { _id: obj._id, role: obj.role },
-    process.env.ACCESS_TOKEN_SECRET!,
+    process.env.REFRESH_TOKEN_SECRET!,
     {
       expiresIn: "7d",
     },

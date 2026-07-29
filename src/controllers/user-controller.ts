@@ -16,7 +16,7 @@ class UserController {
     setAuthCookies(res, user);
     res.status(200).json({ message: "You are Logged in", success: true });
   }
-  async logout(req: Request<{}, {}, Login>, res: Response): Promise<void> {
+  async logout(req: Request, res: Response): Promise<void> {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
     res.json({
@@ -24,13 +24,27 @@ class UserController {
       message: "Logged out",
     });
   }
-  async delete(req: Request<{}, {}, Login>, res: Response): Promise<void> {
+  async delete(req: Request, res: Response): Promise<void> {
     await UserServices.delete(req.user._id);
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
     res
       .status(200)
       .json({ message: "Account deleted Successfully", success: true });
+  }
+  async createAccessToken(req: Request, res: Response) {
+    const accessToken = await UserServices.createAccessToken(
+      req.cookies.refreshToken,
+    );
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 15 * 60 * 1000,
+    });
+    res
+      .status(201)
+      .json({ message: "Access Token create Successfully", success: true });
   }
 }
 
