@@ -1,7 +1,8 @@
 export interface Signup {
   name: string;
   email: string;
-  password: string;
+  password?: string;
+  googleId?: string;
 }
 
 export interface Login {

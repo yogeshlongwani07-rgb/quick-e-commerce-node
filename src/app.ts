@@ -7,6 +7,16 @@ import OAuthRoutes from "./routes/oauth.js";
 
 export default function createApp() {
   const app = express();
+
+  app.use((req, res, next) => {
+    console.log(
+      new Date().toISOString(),
+      req.method,
+      req.originalUrl,
+      req.headers["user-agent"],
+    );
+    next();
+  });
   app.use(express.json());
   app.use(cookieParser());
   app.use("/api/v1/admin", adminRoutes);
