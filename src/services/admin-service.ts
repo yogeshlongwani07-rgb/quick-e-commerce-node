@@ -1,7 +1,9 @@
 import AdminRepository from "../repositories/admin-repository.js";
-import { Login, Signup } from "../interfaces/base.js";
+import { Login, Signup, TokenPayload } from "../interfaces/base.js";
 import { AppError } from "../utils/app-error.js";
 import bcrypt from "bcrypt";
+import Jwt from "jsonwebtoken";
+import generateToken from "../utils/generateToken.js";
 
 class AdminService {
   async create(body: Signup) {
@@ -43,6 +45,24 @@ class AdminService {
       throw new AppError("Account not found", 400);
     }
     await AdminRepository.delete(id);
+  }
+
+  async createAccessToken(refreshToken: string) {
+    if (!refreshToken) {
+      throw new AppError("Token Not Found", 404);
+    }
+
+    const decode = Jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET!,
+    ) as TokenPayload;
+
+    const admin = await AdminRepository.findById(decode._id);
+    if (!admin) {
+      throw new AppError("User not found", 404);
+    }
+    const { accessToken } = generateToken(admin);
+    return accessToken;
   }
 }
 

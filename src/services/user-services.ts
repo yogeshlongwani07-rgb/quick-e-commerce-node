@@ -45,7 +45,7 @@ class UserServices {
 
   async createAccessToken(refreshToken: string) {
     if (!refreshToken) {
-      throw new AppError("Not Token Found", 404);
+      throw new AppError("Token Not Found", 404);
     }
 
     const decode = Jwt.verify(
