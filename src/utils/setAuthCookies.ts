@@ -6,7 +6,11 @@ interface TokenPayload {
   role: string;
 }
 
-export async function setAuthCookies(res: Response, obj: TokenPayload) {
+export async function setAuthCookies(
+  res: Response,
+  obj: TokenPayload,
+  OnlyAccessToken: boolean = false,
+) {
   const { accessToken, refreshToken } = generateToken(obj);
 
   const isProd = process.env.NODE_ENV === "production";
@@ -17,10 +21,13 @@ export async function setAuthCookies(res: Response, obj: TokenPayload) {
     sameSite: isProd ? "none" : "lax",
     maxAge: 15 * 60 * 1000,
   });
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: isProd ? "none" : "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+
+  if (!OnlyAccessToken) {
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: isProd ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+  }
 }

@@ -3,7 +3,6 @@ import { Login, Signup, TokenPayload } from "../interfaces/base.js";
 import { AppError } from "../utils/app-error.js";
 import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
-import generateToken from "../utils/generateToken.js";
 
 class AdminService {
   async create(body: Signup) {
@@ -15,6 +14,9 @@ class AdminService {
     const salt = parseInt(process.env.SALTROUND!, 10);
     if (!salt) {
       throw new AppError("SALT_ROUNDS not found", 400);
+    }
+    if (!password) {
+      throw new AppError("Please sign in with google", 404);
     }
     const hashpassword = await bcrypt.hash(password, salt);
     const newAccount = await AdminRepository.create({
@@ -61,8 +63,7 @@ class AdminService {
     if (!admin) {
       throw new AppError("User not found", 404);
     }
-    const { accessToken } = generateToken(admin);
-    return accessToken;
+    return admin;
   }
 }
 

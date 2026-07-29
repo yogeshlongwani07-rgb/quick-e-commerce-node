@@ -3,7 +3,6 @@ import UserRepository from "../repositories/user-repository.js";
 import { AppError } from "../utils/app-error.js";
 import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
-import generateToken from "../utils/generateToken.js";
 
 class UserServices {
   async create(body: Signup) {
@@ -15,6 +14,9 @@ class UserServices {
     const salt = parseInt(process.env.SALTROUND!, 10);
     if (!salt) {
       throw new AppError("SALT_ROUNDS not found", 400);
+    }
+    if (!password) {
+      throw new AppError("Please sign in with google", 404);
     }
     const hashpassword = await bcrypt.hash(password, salt);
     return UserRepository.create({ name, email, password: hashpassword });
@@ -57,8 +59,7 @@ class UserServices {
     if (!user) {
       throw new AppError("User not found", 404);
     }
-    const { accessToken } = generateToken(user);
-    return accessToken;
+    return user;
   }
 }
 

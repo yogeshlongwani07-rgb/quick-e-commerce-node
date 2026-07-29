@@ -34,15 +34,10 @@ class AdminController {
   }
 
   async createAccessToken(req: Request, res: Response) {
-    const accessToken = await AdminService.createAccessToken(
+    const admin = await AdminService.createAccessToken(
       req.cookies.refreshToken,
     );
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
-      maxAge: 15 * 60 * 1000,
-    });
+    setAuthCookies(res, admin, true);
     res
       .status(201)
       .json({ message: "Access Token create Successfully", success: true });
