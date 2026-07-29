@@ -4,6 +4,7 @@ import { OAuth2Client } from "google-auth-library";
 import UserRepository from "../repositories/user-repository.js";
 import { TokenPayload } from "../interfaces/base.js";
 import { AppError } from "../utils/app-error.js";
+import { GOOGLE_AUTH_PAGE, GOOGLE_CODE } from "../constant.js";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -17,8 +18,7 @@ class oAuthService {
       state: state,
     });
 
-    const url =
-      "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString();
+    const url = GOOGLE_AUTH_PAGE + params.toString();
     return url;
   }
 
@@ -39,7 +39,7 @@ class oAuthService {
     res.clearCookie("oauth_state");
 
     const tokenResponse = await axios.post(
-      "https://oauth2.googleapis.com/token",
+      GOOGLE_CODE,
       new URLSearchParams({
         code,
         client_id: process.env.GOOGLE_CLIENT_ID!,
