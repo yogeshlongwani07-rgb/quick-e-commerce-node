@@ -18,20 +18,20 @@ router.post(
 router.post(
   "/login",
   valdiate(adminLoginSchema),
-  AdminController.login.bind(AdminController),
+  asyncHandler(AdminController.login.bind(AdminController)),
 );
 
 router.post(
   "/logout",
   isLoggedIn,
   isAdmin,
-  AdminController.logout.bind(AdminController),
+  asyncHandler(AdminController.logout.bind(AdminController)),
 );
 router.delete(
   "/delete",
   isLoggedIn,
   isAdmin,
-  AdminController.delete.bind(AdminController),
+  asyncHandler(AdminController.delete.bind(AdminController)),
 );
 
 router.post(
