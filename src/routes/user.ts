@@ -18,25 +18,25 @@ router.post(
 router.post(
   "/login",
   valdiate(userLoginSchema),
-  UserController.login.bind(userController),
+  asyncHandler(UserController.login.bind(userController)),
 );
 
 router.post(
   "/logout",
   isLoggedIn,
   isUser,
-  UserController.logout.bind(UserController),
+  asyncHandler(UserController.logout.bind(UserController)),
 );
 router.delete(
   "/delete",
   isLoggedIn,
   isUser,
-  UserController.delete.bind(UserController),
+  asyncHandler(UserController.delete.bind(UserController)),
 );
 
 router.post(
   "/token/refresh",
-  UserController.createAccessToken.bind(UserController),
+  asyncHandler(UserController.createAccessToken.bind(UserController)),
 );
 
 export default router;
