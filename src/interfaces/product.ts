@@ -18,6 +18,7 @@ export interface CreateProduct {
   unit: Unit;
   stock: number;
   isAvailable: boolean;
+  createdBy: string;
 }
 
 export interface IProduct extends CreateProduct {

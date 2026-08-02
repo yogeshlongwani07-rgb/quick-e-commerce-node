@@ -2,7 +2,10 @@ import ProductRepository from "../repositories/product-repository.js";
 import { CreateProduct } from "../interfaces/product.js";
 
 class ProductService {
-  async createProduct(productData: CreateProduct): Promise<CreateProduct> {
+  async createProduct(
+    productData: CreateProduct,
+    createdBy: string,
+  ): Promise<CreateProduct> {
     const {
       name,
       description,
@@ -23,6 +26,7 @@ class ProductService {
       unit,
       stock,
       isAvailable,
+      createdBy,
     });
     return productData;
   }
