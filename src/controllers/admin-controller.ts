@@ -32,6 +32,16 @@ class AdminController {
       .status(200)
       .json({ message: "Account deleted Successfully", success: true });
   }
+
+  async createAccessToken(req: Request, res: Response) {
+    const admin = await AdminService.createAccessToken(
+      req.cookies.refreshToken,
+    );
+    setAuthCookies(res, admin, true);
+    res
+      .status(201)
+      .json({ message: "Access Token create Successfully", success: true });
+  }
 }
 
 export default new AdminController();

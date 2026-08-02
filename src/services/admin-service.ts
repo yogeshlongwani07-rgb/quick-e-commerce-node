@@ -1,7 +1,8 @@
 import AdminRepository from "../repositories/admin-repository.js";
-import { Login, Signup } from "../interfaces/base.js";
+import { Login, Signup, TokenPayload } from "../interfaces/base.js";
 import { AppError } from "../utils/app-error.js";
 import bcrypt from "bcrypt";
+import Jwt from "jsonwebtoken";
 
 class AdminService {
   async create(body: Signup) {
@@ -13,6 +14,9 @@ class AdminService {
     const salt = parseInt(process.env.SALTROUND!, 10);
     if (!salt) {
       throw new AppError("SALT_ROUNDS not found", 400);
+    }
+    if (!password) {
+      throw new AppError("Please sign in with google", 404);
     }
     const hashpassword = await bcrypt.hash(password, salt);
     const newAccount = await AdminRepository.create({
@@ -43,6 +47,23 @@ class AdminService {
       throw new AppError("Account not found", 400);
     }
     await AdminRepository.delete(id);
+  }
+
+  async createAccessToken(refreshToken: string) {
+    if (!refreshToken) {
+      throw new AppError("Token Not Found", 404);
+    }
+
+    const decode = Jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET!,
+    ) as TokenPayload;
+
+    const admin = await AdminRepository.findById(decode._id);
+    if (!admin) {
+      throw new AppError("User not found", 404);
+    }
+    return admin;
   }
 }
 
