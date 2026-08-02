@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import ProductService from "../services/product-service.js";
+import { Params } from "../interfaces/base.js";
 class ProductController {
   async createProduct(req: Request, res: Response): Promise<void> {
     try {
@@ -11,6 +12,19 @@ class ProductController {
       res
         .status(500)
         .json({ message: "Error creating product", success: false });
+    }
+  }
+  async updateProduct(req: Request<Params>, res: Response): Promise<void> {
+    try {
+      const productId = req.params.id;
+      await ProductService.updateProduct(productId, req.body);
+      res
+        .status(200)
+        .json({ message: "Product updated successfully", success: true });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error updating product", success: false });
     }
   }
 }

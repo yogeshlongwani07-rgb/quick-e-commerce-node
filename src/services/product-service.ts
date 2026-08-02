@@ -26,6 +26,12 @@ class ProductService {
     });
     return productData;
   }
+  async updateProduct(
+    productId: string,
+    productData: Partial<CreateProduct>,
+  ): Promise<void> {
+    await ProductRepository.update(productId, productData);
+  }
 }
 
 export default new ProductService();
