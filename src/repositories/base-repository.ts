@@ -1,8 +1,8 @@
-import { Signup } from "../interfaces/base.js";
-class BaseRepository {
+
+class BaseRepository<T> {
   constructor(public model: any) {}
 
-  async create(body: Signup) {
+  async create(body: T) {
     return this.model.create(body);
   }
   async findByEmail(email: string) {

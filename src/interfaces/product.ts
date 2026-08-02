@@ -9,24 +9,20 @@ export type Category =
   | "Household";
 
 export type Unit = "kg" | "g" | "L" | "ml" | "pcs" | "pack";
-
-export interface Product {
-  _id: string;
-
+export interface CreateProduct {
   name: string;
   description?: string;
-  brand?: string;
-
-  category: Category;
-
   price: number;
+  brand?: string;
+  category: Category;
   unit: Unit;
-
   stock: number;
-  quantity: number;
-
   isAvailable: boolean;
+}
 
+export interface IProduct extends CreateProduct {
+  _id: string;
+  quantity: number;
   createdAt: Date;
   updatedAt: Date;
 }

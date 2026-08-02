@@ -1,7 +1,8 @@
-import { Product } from "../interfaces/product.js";
+import ProductRepository from "../repositories/product-repository.js";
+import { CreateProduct } from "../interfaces/product.js";
 
 class ProductService {
-  async createProduct(productData: Product): Promise<Product> {
+  async createProduct(productData: CreateProduct): Promise<CreateProduct> {
     const {
       name,
       description,
@@ -13,7 +14,7 @@ class ProductService {
       isAvailable,
     } = productData;
 
-    console.log("Product Data:", {
+    await ProductRepository.create({
       name,
       description,
       price,
