@@ -1,12 +1,13 @@
 import ProductRepository from "../repositories/product-repository.js";
 import { CreateProduct } from "../interfaces/product.js";
 import { AppError } from "../utils/app-error.js";
+import AdminRepository from "../repositories/admin-repository.js";
 
 class ProductService {
   async createProduct(
     productData: CreateProduct,
     createdBy: string,
-  ): Promise<CreateProduct> {
+  ): Promise<void> {
     const {
       name,
       description,
@@ -18,7 +19,7 @@ class ProductService {
       isAvailable,
     } = productData;
 
-    await ProductRepository.create({
+    const product = await ProductRepository.create({
       name,
       description,
       price,
@@ -29,7 +30,7 @@ class ProductService {
       isAvailable,
       createdBy,
     });
-    return productData;
+    await AdminRepository.addProductToAdmin(createdBy, product._id);
   }
   async updateProduct(
     productId: string,
