@@ -48,10 +48,10 @@ const productSchema = new mongoose.Schema(
       min: 0,
       default: 0,
     },
-    quantity: {
-      type: Number,
-      required: true,
-    },
+    // quantity: {
+    //   type: Number,
+    //   required: true,
+    // },
     isAvailable: {
       type: Boolean,
       default: true,
