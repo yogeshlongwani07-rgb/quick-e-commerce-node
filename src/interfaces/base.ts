@@ -13,7 +13,3 @@ export interface TokenPayload {
   _id: string;
   role: string;
 }
-
-export interface Params {
-  id: string;
-}
