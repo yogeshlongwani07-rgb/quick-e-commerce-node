@@ -5,6 +5,9 @@ class ProductRepository extends BaseRepository<CreateProduct> {
   constructor() {
     super(Product);
   }
+  async deleteMany(filter: { createdBy: string }) {
+    return this.model.deleteMany(filter);
+  }
 }
 
 export default new ProductRepository();

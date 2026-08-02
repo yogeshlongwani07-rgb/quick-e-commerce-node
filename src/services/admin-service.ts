@@ -3,6 +3,7 @@ import { Login, Signup, TokenPayload } from "../interfaces/base.js";
 import { AppError } from "../utils/app-error.js";
 import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
+import ProductRepository from "../repositories/product-repository.js";
 
 class AdminService {
   async create(body: Signup) {
@@ -42,6 +43,7 @@ class AdminService {
     if (!id) {
       throw new AppError("Please login first", 400);
     }
+    await ProductRepository.deleteMany({ createdBy: id });
     const admin = await AdminRepository.findById(id);
     if (!admin) {
       throw new AppError("Account not found", 400);
