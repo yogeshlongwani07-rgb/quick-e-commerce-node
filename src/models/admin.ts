@@ -18,6 +18,12 @@ const adminSchema = new mongoose.Schema({
     type: String,
     default: "admin",
   },
+  products: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
+  ],
 });
 
 const Admin = mongoose.model("Admin", adminSchema);

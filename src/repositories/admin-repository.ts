@@ -6,6 +6,11 @@ class AdminRepository extends BaseRepository<Signup> {
   constructor() {
     super(Admin);
   }
+  async addProductToAdmin(adminId: string, productId: string): Promise<void> {
+    await Admin.findByIdAndUpdate(adminId, {
+      $push: { products: productId },
+    });
+  }
 }
 
 export default new AdminRepository();
